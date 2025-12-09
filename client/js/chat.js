@@ -56,8 +56,8 @@ export function addMsg(text, isHistory = false, msgType = 'text', timestamp = nu
 			msgType,
 			timestamp: ts
 		})
-	}	const chatArea = window.DOMNodes ? window.DOMNodes.chatArea : null;
-  if (!chatArea) return;
+	}	const chatArea = $id('chat-area');
+	if (!chatArea) return;
 	let className = 'bubble me' + (msgType.includes('_private') ? ' private-message' : '');
 	const date = new Date(ts);
 	const time = date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');	let contentHtml = '';	if (msgType === 'image' || msgType === 'image_private') {
@@ -132,8 +132,8 @@ export function addOtherMsg(msg, userName = '', avatar = '', isHistory = false, 
 	userName = userName || t('ui.anonymous', 'Anonymous');
 	let ts = isHistory ? timestamp : (timestamp || Date.now());
 	if (!ts) return;
-	const chatArea = window.DOMNodes ? window.DOMNodes.chatArea : null;
-  if (!chatArea) return;
+	const chatArea = $id('chat-area');
+	if (!chatArea) return;
 	const bubbleWrap = createElement('div', {
 		class: 'bubble-other-wrap'
 	});	let contentHtml = '';	if (msgType === 'image' || msgType === 'image_private') {
@@ -215,8 +215,8 @@ export function addSystemMsg(text, isHistory = false, timestamp = null) {
 			timestamp: ts
 		})
 	}
-	const chatArea = window.DOMNodes ? window.DOMNodes.chatArea : null;
-  if (!chatArea) return;
+	const chatArea = $id('chat-area');
+	if (!chatArea) return;
 	const safeText = textToHTML(text);
 	const div = createElement('div', {
 		class: 'bubble system'

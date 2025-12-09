@@ -81,13 +81,11 @@ function askNotificationPermission(callback) {
 // Setup the settings panel UI
 // 设置设置面板 UI
 function setupSettingsPanel() {
-  // 使用固定节点名称
-  const settingsSidebar = window.DOMNodes ? window.DOMNodes.settingsSidebar : null;
-  const settingsContent = window.DOMNodes ? window.DOMNodes.settingsContent : null;
-  const settingsTitle = window.DOMNodes ? window.DOMNodes.settingsTitle : null;
-  
-  if (!settingsSidebar || !settingsContent) return;
-  
+	const settingsSidebar = $id('settings-sidebar');
+	const settingsContent = $id('settings-content');
+	const settingsTitle = $id('settings-title');
+	if (!settingsSidebar || !settingsContent) return;
+
 	const settings = loadSettings();
 	
 	// Update settings title
@@ -371,12 +369,11 @@ function isMobile() {
 // Open the settings panel
 // 打开设置面板
 function openSettingsPanel() {
-  // 使用固定节点名称
-  const settingsSidebar = window.DOMNodes ? window.DOMNodes.settingsSidebar : null;
-  const sidebar = window.DOMNodes ? window.DOMNodes.sidebar : null;
-  const sidebarMask = window.DOMNodes ? $id('mobile-sidebar-mask') : null;
-  
-  if (!settingsSidebar || !sidebar) return;
+	const settingsSidebar = $id('settings-sidebar');
+	const sidebar = $id('sidebar');
+	const sidebarMask = $id('mobile-sidebar-mask');
+	
+	if (!settingsSidebar || !sidebar) return;
 	
 	if (isMobile()) {
 		// Mobile: hide main sidebar and show settings sidebar with mask
@@ -403,11 +400,10 @@ function openSettingsPanel() {
 // Close the settings panel
 // 关闭设置面板
 function closeSettingsPanel() {
-  // 使用固定节点名称
-  const settingsSidebar = window.DOMNodes ? window.DOMNodes.settingsSidebar : null;
-  const sidebarMask = window.DOMNodes ? $id('mobile-sidebar-mask') : null;
-  
-  if (!settingsSidebar) return;
+	const settingsSidebar = $id('settings-sidebar');
+	const sidebarMask = $id('mobile-sidebar-mask'); // mobile-sidebar-mask is used for settings on mobile
+
+	if (!settingsSidebar) return;
 
 	const animationEnded = () => {
 		settingsSidebar.style.display = 'none';

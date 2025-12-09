@@ -134,15 +134,15 @@ const LANGUAGES = {
 		flag: '🇨🇳',
 		translations: {
 			// Meta tags for SEO
-			'meta.description': '2025信息工程系 - 真正的端到端加密聊天系统，无数据库，所有消息本地加密，服务器仅做加密数据中转，支持 Cloudflare Workers、Docker、自托管和本地开发。',
+			'meta.description': 'NodeCrypt - 真正的端到端加密聊天系统，无数据库，所有消息本地加密，服务器仅做加密数据中转，支持 Cloudflare Workers、Docker、自托管和本地开发。',
 			'meta.keywords': '端到端加密, 安全, 聊天, WebSocket, Cloudflare Workers, JavaScript, E2EE, 匿名通信, AES, ECDH, RSA, ChaCha20, 安全, 开源, NodeCrypt, shuaiplus',
-			'meta.og_title': '2025信息工程系 - 端到端加密聊天系统',
+			'meta.og_title': 'NodeCrypt - 端到端加密聊天系统',
 			'meta.og_description': 'NodeCrypt 是一个端到端加密的开源聊天系统，所有加密解密均在客户端本地完成，服务器无法获取明文。支持多平台部署，安全、匿名、无历史消息。',
 			'meta.twitter_title': 'NodeCrypt - 端到端加密聊天系统',
 			'meta.twitter_description': 'NodeCrypt 是一个端到端加密的开源聊天系统，所有加密解密均在客户端本地完成，服务器无法获取明文。',
 			
 			// Login and main UI
-			'ui.enter_node': '进入新的节点',
+			'ui.enter_node': '前往节点',
 			'ui.username': '用户名',
 			'ui.node_name': '节点名称',
 			'ui.node_password': '节点密码',
@@ -340,46 +340,49 @@ function detectBrowserLanguage() {
 // Update static HTML text elements
 // 更新HTML中的静态文本元素
 export function updateStaticTexts() {
-  // 如果DOM还没准备好，等待DOM准备好再更新
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => updateStaticTexts());
-    return;
-  }
-  
-  // 使用固定节点名称
-  if (!window.DOMNodes) return;
-  
-  // Update login title
-  if (window.DOMNodes.loginTitle) {
-    window.DOMNodes.loginTitle.textContent = t('ui.enter_node', 'Enter a Node');
-  }
-  
-  // Update login form content with new translations
-  if (window.DOMNodes.loginForm) {
-    // Use a custom event to trigger form regeneration instead of dynamic import
-    window.dispatchEvent(new CustomEvent('regenerateLoginForm'));
-  }
-  
-  // Update sidebar username label
-  if (window.DOMNodes.sidebarUsername) {
-    // Use a custom event to update sidebar username instead of dynamic import
-    window.dispatchEvent(new CustomEvent('updateSidebarUsername'));
-  }
-  
-  // Update "Enter a Node" text in sidebar
-  if (window.DOMNodes.joinRoomText) {
-    window.DOMNodes.joinRoomText.textContent = t('ui.enter_node', 'Enter a Node');
-  }
-  
-  // Update Members title in rightbar
-  if (window.DOMNodes.membersTitle) {
-    window.DOMNodes.membersTitle.textContent = t('ui.members', 'Members');
-  }
-  
-  // Update settings title
-  if (window.DOMNodes.settingsTitle) {
-    window.DOMNodes.settingsTitle.textContent = t('settings.title', 'Settings');
-  }
+	// 如果DOM还没准备好，等待DOM准备好再更新
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', () => updateStaticTexts());
+		return;
+	}
+	
+	// Update login title
+	const loginTitle = document.getElementById('login-title');
+	if (loginTitle) {
+		loginTitle.textContent = t('ui.enter_node', 'Enter a Node');
+	}
+		// Update login form content with new translations
+	const loginFormContainer = document.getElementById('login-form');
+	if (loginFormContainer) {
+		// Use a custom event to trigger form regeneration instead of dynamic import
+		// 使用自定义事件触发表单重新生成，而不是动态导入
+		window.dispatchEvent(new CustomEvent('regenerateLoginForm'));
+	}
+	
+	// Update sidebar username label
+	const sidebarUsername = document.getElementById('sidebar-username');
+	if (sidebarUsername) {
+		// Use a custom event to update sidebar username instead of dynamic import
+		// 使用自定义事件更新侧边栏用户名，而不是动态导入
+		window.dispatchEvent(new CustomEvent('updateSidebarUsername'));
+	}
+		// Update "Enter a Node" text in sidebar
+	const joinRoomText = document.getElementById('join-room-text');
+	if (joinRoomText) {
+		joinRoomText.textContent = t('ui.enter_node', 'Enter a Node');
+	}
+	
+	// Update Members title in rightbar
+	const membersTitle = document.getElementById('members-title');
+	if (membersTitle) {
+		membersTitle.textContent = t('ui.members', 'Members');
+	}
+	
+	// Update settings title
+	const settingsTitle = document.getElementById('settings-title');
+	if (settingsTitle) {
+		settingsTitle.textContent = t('settings.title', 'Settings');
+	}
 	
 	// Update message placeholder
 	const messagePlaceholder = document.querySelector('.input-field-placeholder');
