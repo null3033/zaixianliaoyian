@@ -129,7 +129,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	// 阻止用户输入用户名、房间名和密码时输入空格
 	// Prevent space input for username, room name, and password fields
 	preventSpaceInput($id('userName'));
-	preventSpaceInput($id('roomName'))=1;
 	preventSpaceInput($id('password'));
 	
 	// 初始化翻转卡片功能 / Initialize flip card functionality
