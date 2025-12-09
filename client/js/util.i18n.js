@@ -340,49 +340,46 @@ function detectBrowserLanguage() {
 // Update static HTML text elements
 // 更新HTML中的静态文本元素
 export function updateStaticTexts() {
-	// 如果DOM还没准备好，等待DOM准备好再更新
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', () => updateStaticTexts());
-		return;
-	}
-	
-	// Update login title
-	const loginTitle = document.getElementById('login-title');
-	if (loginTitle) {
-		loginTitle.textContent = t('ui.enter_node', 'Enter a Node');
-	}
-		// Update login form content with new translations
-	const loginFormContainer = document.getElementById('login-form');
-	if (loginFormContainer) {
-		// Use a custom event to trigger form regeneration instead of dynamic import
-		// 使用自定义事件触发表单重新生成，而不是动态导入
-		window.dispatchEvent(new CustomEvent('regenerateLoginForm'));
-	}
-	
-	// Update sidebar username label
-	const sidebarUsername = document.getElementById('sidebar-username');
-	if (sidebarUsername) {
-		// Use a custom event to update sidebar username instead of dynamic import
-		// 使用自定义事件更新侧边栏用户名，而不是动态导入
-		window.dispatchEvent(new CustomEvent('updateSidebarUsername'));
-	}
-		// Update "Enter a Node" text in sidebar
-	const joinRoomText = document.getElementById('join-room-text');
-	if (joinRoomText) {
-		joinRoomText.textContent = t('ui.enter_node', 'Enter a Node');
-	}
-	
-	// Update Members title in rightbar
-	const membersTitle = document.getElementById('members-title');
-	if (membersTitle) {
-		membersTitle.textContent = t('ui.members', 'Members');
-	}
-	
-	// Update settings title
-	const settingsTitle = document.getElementById('settings-title');
-	if (settingsTitle) {
-		settingsTitle.textContent = t('settings.title', 'Settings');
-	}
+  // 如果DOM还没准备好，等待DOM准备好再更新
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => updateStaticTexts());
+    return;
+  }
+  
+  // 使用固定节点名称
+  if (!window.DOMNodes) return;
+  
+  // Update login title
+  if (window.DOMNodes.loginTitle) {
+    window.DOMNodes.loginTitle.textContent = t('ui.enter_node', 'Enter a Node');
+  }
+  
+  // Update login form content with new translations
+  if (window.DOMNodes.loginForm) {
+    // Use a custom event to trigger form regeneration instead of dynamic import
+    window.dispatchEvent(new CustomEvent('regenerateLoginForm'));
+  }
+  
+  // Update sidebar username label
+  if (window.DOMNodes.sidebarUsername) {
+    // Use a custom event to update sidebar username instead of dynamic import
+    window.dispatchEvent(new CustomEvent('updateSidebarUsername'));
+  }
+  
+  // Update "Enter a Node" text in sidebar
+  if (window.DOMNodes.joinRoomText) {
+    window.DOMNodes.joinRoomText.textContent = t('ui.enter_node', 'Enter a Node');
+  }
+  
+  // Update Members title in rightbar
+  if (window.DOMNodes.membersTitle) {
+    window.DOMNodes.membersTitle.textContent = t('ui.members', 'Members');
+  }
+  
+  // Update settings title
+  if (window.DOMNodes.settingsTitle) {
+    window.DOMNodes.settingsTitle.textContent = t('settings.title', 'Settings');
+  }
 	
 	// Update message placeholder
 	const messagePlaceholder = document.querySelector('.input-field-placeholder');

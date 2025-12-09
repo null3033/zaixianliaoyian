@@ -1,3 +1,58 @@
+// 固定的DOM节点变量定义
+window.DOMNodes = {
+  // 登录相关
+  loginContainer: document.getElementById('login-container'),
+  loginForm: document.getElementById('login-form'),
+  loginTitle: document.getElementById('login-title'),
+  flipCard: document.getElementById('flip-card'),
+  
+  // 聊天相关
+  chatContainer: document.getElementById('chat-container'),
+  sidebar: document.getElementById('sidebar'),
+  mainHeader: document.getElementById('main-header'),
+  chatArea: document.getElementById('chat-area'),
+  roomList: document.getElementById('room-list'),
+  
+  // 右侧栏
+  rightbar: document.getElementById('rightbar'),
+  membersTitle: document.getElementById('members-title'),
+  memberList: document.getElementById('member-list'),
+  memberTabs: document.getElementById('member-tabs'),
+  
+  // 设置面板
+  settingsSidebar: document.getElementById('settings-sidebar'),
+  settingsTitle: document.getElementById('settings-title'),
+  settingsContent: document.getElementById('settings-content'),
+  settingsBtn: document.getElementById('settings-btn'),
+  settingsBackBtn: document.getElementById('settings-back-btn'),
+  
+  // 用户相关
+  sidebarUsername: document.getElementById('sidebar-username'),
+  sidebarUserAvatar: document.getElementById('sidebar-user-avatar'),
+  
+  // 功能按钮
+  joinRoomText: document.getElementById('join-room-text'),
+  rightbarGroupDesc: document.getElementById('rightbar-group-desc')
+};
+
+// 节点初始化检查
+function initializeDOMNodes() {
+  // 检查所有必需的节点是否都存在
+  const requiredNodes = ['loginContainer', 'chatContainer', 'chatArea'];
+  const missingNodes = [];
+  
+  requiredNodes.forEach(nodeName => {
+    if (!window.DOMNodes[nodeName]) {
+      missingNodes.push(nodeName);
+    }
+  });
+  
+  if (missingNodes.length > 0) {
+    console.error('Missing required DOM nodes:', missingNodes);
+    // 可以在这里创建缺失的节点或显示错误信息
+  }
+}
+
 // 导入 NodeCrypt 模块（加密功能模块）
 // Import the NodeCrypt module (used for encryption)
 import './NodeCrypt.js';
@@ -106,6 +161,7 @@ window.downloadFile = downloadFile;
 // 当 DOM 内容加载完成后执行初始化逻辑
 // Run initialization logic when the DOM content is fully loaded
 window.addEventListener('DOMContentLoaded', () => {
+	initializeDOMNodes();
 	// 移除预加载样式类，允许过渡效果
 	// Remove preload class to allow transitions
 	setTimeout(() => {
@@ -115,12 +171,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	// 初始化登录表单 / Initialize login form
 	initLoginForm();
 
-	const loginForm = $id('login-form');               // 登录表单 / Login form
-
-	if (loginForm) {
-		// 监听登录表单提交事件 / Listen to login form submission
-		loginForm.addEventListener('submit', loginFormHandler(null))
-	}
+	 const loginForm = window.DOMNodes ? window.DOMNodes.loginForm : null;
+  if (loginForm) {
+    loginForm.addEventListener('submit', loginFormHandler(null))
+  }
 
 	const joinBtn = $('.join-room'); // 加入房间按钮 / Join room button
 	if (joinBtn) {
@@ -129,7 +183,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	// 阻止用户输入用户名、房间名和密码时输入空格
 	// Prevent space input for username, room name, and password fields
 	preventSpaceInput($id('userName'));
-	preventSpaceInput($id('roomName'));
+	$id('roomName')=1;
 	preventSpaceInput($id('password'));
 	
 	// 初始化翻转卡片功能 / Initialize flip card functionality

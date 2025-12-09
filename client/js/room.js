@@ -46,18 +46,21 @@ export function getNewRoomData() {
 // Switch to another room by index
 // 切换到指定索引的房间
 export function switchRoom(index) {
-	if (index < 0 || index >= roomsData.length) return;
-	activeRoomIndex = index;
-	const rd = roomsData[index];
-	if (typeof rd.unreadCount === 'number') rd.unreadCount = 0;
-	const sidebarUsername = document.getElementById('sidebar-username');
-	if (sidebarUsername) sidebarUsername.textContent = rd.myUserName;
-	setSidebarAvatar(rd.myUserName);
-	renderRooms(index);
-	renderMainHeader();
-	renderUserList(false);
-	renderChatArea();
-	updateChatInputStyle()
+  if (index < 0 || index >= roomsData.length) return;
+  activeRoomIndex = index;
+  const rd = roomsData[index];
+  if (typeof rd.unreadCount === 'number') rd.unreadCount = 0;
+  
+  // 使用固定节点名称
+  const sidebarUsername = window.DOMNodes ? window.DOMNodes.sidebarUsername : null;
+  if (sidebarUsername) sidebarUsername.textContent = rd.myUserName;
+  
+  setSidebarAvatar(rd.myUserName);
+  renderRooms(index);
+  renderMainHeader();
+  renderUserList(false);
+  renderChatArea();
+  updateChatInputStyle()
 }
 
 // Set the sidebar avatar
@@ -75,7 +78,8 @@ export function setSidebarAvatar(userName) {
 // Render the room list
 // 渲染房间列表
 export function renderRooms(activeId = 0) {
-	const roomList = $id('room-list');
+  const roomList = window.DOMNodes ? window.DOMNodes.roomList : null;
+  if (!roomList) return;
 	roomList.innerHTML = '';
 	roomsData.forEach((rd, i) => {
 		const div = createElement('div', {
